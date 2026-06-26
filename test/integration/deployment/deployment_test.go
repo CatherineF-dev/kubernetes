@@ -1656,11 +1656,15 @@ func TestRollingUpdateAndProportionalScalingForDeploymentPodReplacement(t *testi
 				deploymentutil.DesiredReplicasAnnotation: "120",
 				deploymentutil.MaxReplicasAnnotation:     "140",
 				deploymentutil.RevisionAnnotation:        "1",
+				v1.TopControllerName:                     "deployment",
+				v1.TopControllerResourceType:            "Deployment",
 			},
 			expectedSecondRSAnnotationsAfterInFlightScaleUp: map[string]string{
 				deploymentutil.DesiredReplicasAnnotation: "120",
 				deploymentutil.MaxReplicasAnnotation:     "140",
 				deploymentutil.RevisionAnnotation:        "2",
+				v1.TopControllerName:                     "deployment",
+				v1.TopControllerResourceType:            "Deployment",
 			},
 		},
 		{
@@ -1679,11 +1683,15 @@ func TestRollingUpdateAndProportionalScalingForDeploymentPodReplacement(t *testi
 				deploymentutil.DesiredReplicasAnnotation: "120",
 				deploymentutil.MaxReplicasAnnotation:     "140",
 				deploymentutil.RevisionAnnotation:        "1",
+				v1.TopControllerName:                     "deployment",
+				v1.TopControllerResourceType:            "Deployment",
 			},
 			expectedSecondRSAnnotationsAfterInFlightScaleUp: map[string]string{
 				deploymentutil.DesiredReplicasAnnotation: "120",
 				deploymentutil.MaxReplicasAnnotation:     "140",
 				deploymentutil.RevisionAnnotation:        "2",
+				v1.TopControllerName:                     "deployment",
+				v1.TopControllerResourceType:            "Deployment",
 			},
 		},
 	}
@@ -1821,6 +1829,8 @@ func TestRollingUpdateAndProportionalScalingForDeploymentPodReplacement(t *testi
 					deploymentutil.DesiredReplicasAnnotation: "120",
 					deploymentutil.MaxReplicasAnnotation:     "140",
 					deploymentutil.RevisionAnnotation:        fmt.Sprintf("%d", idx+1),
+					v1.TopControllerName:                     "deployment",
+					v1.TopControllerResourceType:            "Deployment",
 				}
 				if !reflect.DeepEqual(expectedFinalAnnotations, curRS.Annotations) {
 					t.Fatalf("unexpected %q replica set annotations: %s", curRS.Name, cmp.Diff(expectedFinalAnnotations, curRS.Annotations))
